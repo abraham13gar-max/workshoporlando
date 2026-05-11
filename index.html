@@ -90,10 +90,11 @@
   }
   .video-wrapper video { width: 100%; display: block; }
 
-  /* SPEAKERS */
-  .speakers-section { background: #fff; }
-  .speaker-slide { width: 100%; }
-  .speaker-slide img { width: 100%; height: auto; display: block; max-width: 100%; }
+  /* SPEAKERS SLIDER */
+  .speakers-section { position: relative; overflow: hidden; background: #fff; width: 100%; }
+  .speakers-track { display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1); will-change: transform; }
+  .speaker-slide { min-width: 100%; width: 100%; flex-shrink: 0; }
+  .speaker-slide img { width: 100%; display: block; }
 
   /* CONTACT / WHATSAPP SECTION */
   .contact-section {
@@ -157,11 +158,8 @@
   img { max-width: 100%; display: block; }
 
   @media (max-width: 768px) {
-    .navbar { padding: 0 12px; height: auto; min-height: 60px; flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
-    .navbar img { height: 40px; }
-    .nav-links { gap: 8px; flex-wrap: wrap; }
-    .nav-links a { font-size: 11px; letter-spacing: 0.5px; }
-    .nav-sep { display: none; }
+    .navbar { padding: 0 16px; }
+    .nav-links { display: none; }
     .video-section { padding: 40px 16px; }
     .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 22px; letter-spacing: 1px; }
     .countdown-section { padding: 40px 16px 30px; }
@@ -234,11 +232,13 @@
 
 <!-- SPEAKERS SECTION -->
 <div class="speakers-section" id="speakers">
-  <div class="speaker-slide">
-    <img src="assets/asset_png_005.png" alt="Jim Knight">
-  </div>
-  <div class="speaker-slide">
-    <img src="assets/asset_png_006.png" alt="Michael Baker">
+  <div class="speakers-track" id="speakersTrack">
+    <div class="speaker-slide">
+      <img src="assets/asset_png_005.png" alt="Jim Knight">
+    </div>
+    <div class="speaker-slide">
+      <img src="assets/asset_png_006.png" alt="Michael Baker">
+    </div>
   </div>
 </div>
 
@@ -276,6 +276,16 @@
   function scrollToSection(id) {
     document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
   }
+
+  // Speakers slider — auto-rotate every 5s
+  let currentSlide = 0;
+  function updateSlider() {
+    const section = document.querySelector('.speakers-section');
+    const w = section.offsetWidth;
+    document.getElementById('speakersTrack').style.transform = `translateX(-${currentSlide * w}px)`;
+  }
+  setInterval(() => { currentSlide = (currentSlide + 1) % 2; updateSlider(); }, 5000);
+  window.addEventListener('resize', updateSlider);
 
   // Live Countdown — May 14, 2026, 3:00 PM Eastern Time
   // 3 PM EDT = 19:00 UTC
