@@ -90,29 +90,9 @@
   }
   .video-wrapper video { width: 100%; display: block; }
 
-  /* SPEAKERS SLIDER */
-  .speakers-section { position: relative; overflow: hidden; background: #fff; }
-  .speakers-track { display: flex; align-items: flex-start; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
-  .speaker-slide { flex: 0 0 100%; }
-  .speaker-slide img { width: 100%; height: auto; display: block; }
-
-  /* Minimal next-arrow */
-  .speaker-next {
-    position: absolute; top: 50%; right: 4%;
-    transform: translateY(-50%);
-    width: 48px; height: 48px;
-    background: none; border: none;
-    cursor: pointer; z-index: 10;
-    display: flex; align-items: center; justify-content: center;
-    transition: transform 0.2s, opacity 0.2s;
-    opacity: 0.7;
-  }
-  .speaker-next:hover { opacity: 1; transform: translateY(-50%) translateX(4px); }
-  .speaker-next svg { width: 32px; height: 32px; stroke: #071E5C; fill: none; stroke-width: 1.5; }
-  @media (max-width: 768px) {
-    .speaker-next { width: 36px; height: 36px; right: 5%; }
-    .speaker-next svg { width: 24px; height: 24px; }
-  }
+  /* SPEAKERS */
+  .speakers-section { background: #fff; }
+  .speaker-slide img { width: 100%; display: block; }
 
   /* CONTACT / WHATSAPP SECTION */
   .contact-section {
@@ -243,17 +223,12 @@
 
 <!-- SPEAKERS SECTION -->
 <div class="speakers-section" id="speakers">
-  <div class="speakers-track" id="speakersTrack">
-    <div class="speaker-slide">
-      <img src="assets/asset_png_005.png" alt="Jim Knight">
-    </div>
-    <div class="speaker-slide">
-      <img src="assets/asset_png_006.png" alt="Michael Baker">
-    </div>
+  <div class="speaker-slide">
+    <img src="assets/asset_png_005.png" alt="Jim Knight">
   </div>
-  <button class="speaker-next" onclick="nextSpeaker()" aria-label="Next speaker">
-    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-  </button>
+  <div class="speaker-slide">
+    <img src="assets/asset_png_006.png" alt="Michael Baker">
+  </div>
 </div>
 
 <!-- MOMENTS / GALLERY SECTION -->
@@ -289,14 +264,6 @@
 <script>
   function scrollToSection(id) {
     document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
-  }
-
-  // Speakers slider — click to advance, no auto-rotate
-  let currentSlide = 0;
-  const totalSlides = 2;
-  function nextSpeaker() {
-    currentSlide = (currentSlide + 1) % totalSlides;
-    document.getElementById('speakersTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
   }
 
   // Live Countdown — May 14, 2026, 3:00 PM Eastern Time
