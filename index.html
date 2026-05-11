@@ -6,7 +6,7 @@
 <title>Workshop Orlando</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #fff; font-family: 'Arial', sans-serif; overflow-x: hidden; }
+  body { background: #fff; font-family: 'Arial', sans-serif; }
 
   /* NAV */
   .navbar {
@@ -154,12 +154,14 @@
   }
   .footer img { height: 40px; }
 
-  img { max-width: 100%; }
-  html, body { max-width: 100%; overflow-x: hidden; }
+  img { max-width: 100%; display: block; }
 
   @media (max-width: 768px) {
-    .navbar { padding: 0 16px; }
-    .nav-links { display: none; }
+    .navbar { padding: 0 12px; height: auto; min-height: 60px; flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
+    .navbar img { height: 40px; }
+    .nav-links { gap: 8px; flex-wrap: wrap; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.5px; }
+    .nav-sep { display: none; }
     .video-section { padding: 40px 16px; }
     .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 22px; letter-spacing: 1px; }
     .countdown-section { padding: 40px 16px 30px; }
