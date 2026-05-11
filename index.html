@@ -91,10 +91,10 @@
   .video-wrapper video { width: 100%; display: block; }
 
   /* SPEAKERS SLIDER */
-  .speakers-section { position: relative; overflow-x: hidden; background: #fff; }
-  .speakers-track { display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
-  .speaker-slide { min-width: 100%; }
-  .speaker-slide img { width: 100%; display: block; }
+  .speakers-section { position: relative; overflow: hidden; background: #fff; }
+  .speakers-track { display: flex; align-items: flex-start; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
+  .speaker-slide { width: 100vw; flex-shrink: 0; }
+  .speaker-slide img { width: 100%; height: auto; display: block; }
 
   /* Minimal next-arrow */
   .speaker-next {
