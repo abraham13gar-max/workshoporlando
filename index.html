@@ -154,15 +154,24 @@
   }
   .footer img { height: 40px; }
 
+  img { max-width: 100%; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
   @media (max-width: 768px) {
     .navbar { padding: 0 16px; }
     .nav-links { display: none; }
-    .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 24px; }
-    .cd-box { min-width: 75px; padding: 14px 12px; }
-    .cd-num { font-size: 32px; }
-    .countdown { gap: 10px; }
-    .wa-btn { width: 70px; height: 70px; }
-    .wa-btn svg { width: 38px; height: 38px; }
+    .video-section { padding: 40px 16px; }
+    .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 22px; letter-spacing: 1px; }
+    .countdown-section { padding: 40px 16px 30px; }
+    .contact-section { padding: 50px 16px; }
+    .cd-box { min-width: 70px; padding: 12px 10px; }
+    .cd-num { font-size: 28px; }
+    .countdown { gap: 8px; }
+    .wa-cta { font-size: 15px; padding: 16px 24px; }
+    .wa-btn { width: 60px; height: 60px; bottom: 3%; right: 3%; }
+    .wa-btn svg { width: 32px; height: 32px; }
+    .footer { padding: 16px; }
+    .footer img { height: 30px; }
   }
 </style>
 </head>
