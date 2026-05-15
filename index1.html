@@ -6,7 +6,7 @@
 <title>Workshop Orlando</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { background: #fff; font-family: 'Arial', sans-serif; }
+  body { background: #fff; font-family: 'Arial', sans-serif; overflow-x: hidden; }
 
   /* NAV */
   .navbar {
@@ -91,10 +91,28 @@
   .video-wrapper video { width: 100%; display: block; }
 
   /* SPEAKERS SLIDER */
-  .speakers-section { position: relative; overflow-x: hidden; overflow-y: visible; background: #fff; width: 100%; }
-  .speakers-track { display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1); will-change: transform; }
-  .speaker-slide { min-width: 100%; width: 100%; flex-shrink: 0; background: #fff; padding: 0 12px; }
-  .speaker-slide img { width: 100%; display: block; background: #fff; }
+  .speakers-section { position: relative; overflow-x: hidden; background: #fff; }
+  .speakers-track { display: flex; transition: transform 0.6s cubic-bezier(.4,0,.2,1); }
+  .speaker-slide { min-width: 100%; }
+  .speaker-slide img { width: 100%; display: block; }
+
+  /* Minimal next-arrow */
+  .speaker-next {
+    position: absolute; top: 50%; right: 4%;
+    transform: translateY(-50%);
+    width: 48px; height: 48px;
+    background: none; border: none;
+    cursor: pointer; z-index: 10;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.2s, opacity 0.2s;
+    opacity: 0.7;
+  }
+  .speaker-next:hover { opacity: 1; transform: translateY(-50%) translateX(4px); }
+  .speaker-next svg { width: 32px; height: 32px; stroke: #071E5C; fill: none; stroke-width: 1.5; }
+  @media (max-width: 768px) {
+    .speaker-next { width: 36px; height: 36px; right: 5%; }
+    .speaker-next svg { width: 24px; height: 24px; }
+  }
 
   /* CONTACT / WHATSAPP SECTION */
   .contact-section {
@@ -147,36 +165,6 @@
     100% { transform: scale(1.5); opacity: 0; }
   }
 
-  /* PHOTO GALLERY */
-  .gallery-section {
-    background: #fff;
-    padding: 70px 20px;
-    text-align: center;
-  }
-  .gallery-section h3 {
-    color: #071E5C; font-size: 14px; letter-spacing: 4px;
-    text-transform: uppercase; margin-bottom: 8px; font-weight: 700;
-  }
-  .gallery-section h2 {
-    color: #071E5C; font-size: 32px; font-weight: 900;
-    text-transform: uppercase; margin-bottom: 40px; letter-spacing: 2px;
-  }
-  .gallery-grid {
-    display: flex; gap: 24px; justify-content: center;
-    flex-wrap: wrap; max-width: 600px; margin: 0 auto;
-  }
-  .gallery-card {
-    background: #071E5C; color: #fff;
-    border-radius: 16px; padding: 40px 50px;
-    text-decoration: none; min-width: 200px;
-    box-shadow: 0 8px 24px rgba(7,30,92,0.2);
-    transition: transform 0.2s, box-shadow 0.2s;
-  }
-  .gallery-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(7,30,92,0.35); }
-  .gallery-card.disabled { opacity: 0.35; pointer-events: none; cursor: default; }
-  .gallery-day { font-size: 30px; font-weight: 900; letter-spacing: 2px; }
-  .gallery-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-top: 10px; opacity: 0.85; }
-
   /* FOOTER */
   .footer {
     background: #071E5C;
@@ -185,23 +173,16 @@
   }
   .footer img { height: 40px; }
 
-  img { max-width: 100%; display: block; }
-
   @media (max-width: 768px) {
     .navbar { padding: 0 16px; }
-    .nav-links { display: none; }
-    .video-section { padding: 40px 16px; }
-    .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 22px; letter-spacing: 1px; }
-    .countdown-section { padding: 40px 16px 30px; }
-    .contact-section { padding: 50px 16px; }
-    .cd-box { min-width: 70px; padding: 12px 10px; }
-    .cd-num { font-size: 28px; }
-    .countdown { gap: 8px; }
-    .wa-cta { font-size: 15px; padding: 16px 24px; }
-    .wa-btn { width: 60px; height: 60px; bottom: 3%; right: 3%; }
-    .wa-btn svg { width: 32px; height: 32px; }
-    .footer { padding: 16px; }
-    .footer img { height: 30px; }
+    .nav-links { gap: 12px; }
+    .nav-links a { font-size: 10px; letter-spacing: 0.5px; }
+    .video-section h1, .countdown-section h2, .contact-section h2 { font-size: 24px; }
+    .cd-box { min-width: 75px; padding: 14px 12px; }
+    .cd-num { font-size: 32px; }
+    .countdown { gap: 10px; }
+    .wa-btn { width: 70px; height: 70px; }
+    .wa-btn svg { width: 38px; height: 38px; }
   }
 </style>
 </head>
@@ -216,8 +197,6 @@
     <a onclick="scrollToSection('kennedy')">KENNEDY SPACE CENTER</a>
     <span class="nav-sep">|</span>
     <a onclick="scrollToSection('moments')">MOMENTS FROM THE MISSION</a>
-    <span class="nav-sep">|</span>
-    <a onclick="scrollToSection('gallery')">GALLERY</a>
   </div>
 </nav>
 
@@ -272,27 +251,14 @@
       <img src="assets/asset_png_006.png" alt="Michael Baker">
     </div>
   </div>
+  <button class="speaker-next" onclick="nextSpeaker()" aria-label="Next speaker">
+    <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
+  </button>
 </div>
 
 <!-- MOMENTS / GALLERY SECTION -->
 <div class="section" id="moments">
   <img src="assets/asset_png_007.png" alt="Moments from the Mission">
-</div>
-
-<!-- PHOTO GALLERY -->
-<div class="gallery-section" id="gallery">
-  <h3>Captured Moments</h3>
-  <h2>Event Gallery</h2>
-  <div class="gallery-grid">
-    <div class="gallery-card disabled">
-      <div class="gallery-day">Day 1</div>
-      <div class="gallery-label">Coming Soon</div>
-    </div>
-    <a class="gallery-card" href="https://events5418.pixieset.com/amex/" target="_blank">
-      <div class="gallery-day">Day 2</div>
-      <div class="gallery-label">View Photos →</div>
-    </a>
-  </div>
 </div>
 
 <!-- CONTACT / WHATSAPP -->
@@ -325,19 +291,17 @@
     document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
   }
 
-  // Speakers slider — auto-rotate every 5s
+  // Speakers slider — click to advance, no auto-rotate
   let currentSlide = 0;
-  function updateSlider() {
-    const section = document.querySelector('.speakers-section');
-    const w = section.offsetWidth;
-    document.getElementById('speakersTrack').style.transform = `translateX(-${currentSlide * w}px)`;
+  const totalSlides = 2;
+  function nextSpeaker() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    document.getElementById('speakersTrack').style.transform = `translateX(-${currentSlide * 100}%)`;
   }
-  setInterval(() => { currentSlide = (currentSlide + 1) % 2; updateSlider(); }, 5000);
-  window.addEventListener('resize', updateSlider);
 
   // Live Countdown — May 14, 2026, 3:00 PM Eastern Time
   // 3 PM EDT = 19:00 UTC
-  const targetDate = new Date('2026-05-14T23:30:00Z').getTime();
+  const targetDate = new Date('2026-05-14T19:00:00Z').getTime();
   function updateCountdown() {
     const now = new Date().getTime();
     let diff = targetDate - now;
